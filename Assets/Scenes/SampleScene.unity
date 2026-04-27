@@ -594,7 +594,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
@@ -646,7 +646,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -884,6 +884,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1394,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   ObstaclePrefab: {fileID: 3954130545569895389, guid: 045725f9f2d8b6a43addd26477891438, type: 3}
-  SpawnBounds: {x: 13.5, y: 6.2}
+  SpawnBounds: {x: 1, y: 6.2}
   SpawnDelay: {x: 0.2, y: 1}
 --- !u!1 &1563318551
 GameObject:
@@ -2380,6 +2381,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 838896501296468041, guid: 91fe2d87901b8a243a3687c4c97b8993, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 838896501296468041, guid: 91fe2d87901b8a243a3687c4c97b8993, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2431,6 +2436,10 @@ PrefabInstance:
       propertyPath: GameOverScreen
       value: 
       objectReference: {fileID: 677005883}
+    - target: {fileID: 6499877290901054523, guid: 91fe2d87901b8a243a3687c4c97b8993, type: 3}
+      propertyPath: ExplosionPrefab
+      value: 
+      objectReference: {fileID: 2771900175221696723, guid: 72e66a489a0200445a0826e79ca63b5a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

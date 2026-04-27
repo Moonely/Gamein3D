@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject GameOverScreen;
+    
+    [SerializeField]
+    private GameObject ExplosionPrefab;
 
     void OnMove(InputValue value)
     {
@@ -47,12 +50,27 @@ public class Player : MonoBehaviour
         {
             int damages = o.Explode();
             HP -= damages;
-            HPSlider.value = HP;
+
+            if(HPSlider != null)
+                HPSlider.value = HP;
+
+            transform.localScale += Vector3.one * 0.2f;
             if (HP <= 0)
             {
-                enabled = false;
-                GameOverScreen.SetActive(true);
+                ExplodePlayer();
+                return;
             }
         }
+    }
+
+    private void ExplodePlayer()
+    {
+        if (ExplosionPrefab != null)
+        {
+            Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+        }
+        //enabled = false;
+        GameOverScreen.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
