@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -69,8 +71,12 @@ public class Player : MonoBehaviour
         {
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
         }
-        //enabled = false;
-        GameOverScreen.SetActive(true);
         gameObject.SetActive(false);
+        Invoke(nameof(ShowGameOverScreen), 2.0f);
+    }
+
+    private void ShowGameOverScreen()
+    {
+        GameOverScreen.SetActive(true);
     }
 }
