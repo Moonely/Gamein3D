@@ -1,7 +1,5 @@
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Processors;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -25,7 +23,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject GameOverScreen;
-    
+
     [SerializeField]
     private GameObject ExplosionPrefab;
 
@@ -36,10 +34,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_movement.magnitude > 0)
+        if (_movement.magnitude > 0)
         {
             Body.AddForce((Vector3)_movement * Speed);
-        } else
+        }
+        else
         {
             Body.linearVelocity *= SpeedDecrease;
         }
@@ -48,12 +47,12 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Obstacle o = other.GetComponent<Obstacle>();
-        if(o != null)
+        if (o != null)
         {
             int damages = o.Explode();
             HP -= damages;
 
-            if(HPSlider != null)
+            if (HPSlider != null)
                 HPSlider.value = HP;
 
             transform.localScale += Vector3.one * 0.2f;
@@ -71,12 +70,8 @@ public class Player : MonoBehaviour
         {
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
         }
-        gameObject.SetActive(false);
-        Invoke(nameof(ShowGameOverScreen), 2.0f);
-    }
-
-    private void ShowGameOverScreen()
-    {
+        //enabled = false;
         GameOverScreen.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

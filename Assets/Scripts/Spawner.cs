@@ -1,42 +1,63 @@
-using UnityEngine;
+﻿using UnityEngine;
+
+
+/// Le Spawner crée des obstacles à intervalles réguliers.
+/// La difficulté (fréquence + vitesse + dégâts) est ajustée par le GameManager.
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField]
-    private Obstacle ObstaclePrefab;
+    [Header("Prefab de l'obstacle à instancier")]
+    [SerializeField] private Obstacle ObstaclePrefab;
 
-    [SerializeField]
-    private Vector2 SpawnBounds;
+    [Header("Zone de spawn (en local)")]
+    [SerializeField] private Vector2 SpawnBounds;
 
-    [SerializeField]
-    private Vector2 SpawnDelay;
+    [Header("Délai entre deux spawns (min, max)")]
+    [SerializeField] private Vector2 SpawnDelay;
 
-    private float _nextSpawn;
+    private float _nextSpawn; // Temps auquel le prochain obstacle doit apparaître
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(Time.time > _nextSpawn)
+        // Si on a dépassé le temps prévu pour le prochain spawn
+        if (Time.time > _nextSpawn)
         {
             SpawnSphere();
 
-            _nextSpawn = Time.time + Random.Range(SpawnDelay.x, SpawnDelay.y);
+            // Délai aléatoire entre min et max
+            float delay = Random.Range(SpawnDelay.x, SpawnDelay.y);
+
+            // Plus le niveau est dur, plus ça spawn vite
+            delay /= GameManager.Instance.SpawnRateMultiplier;
+
+            _nextSpawn = Time.time + delay;
         }
     }
 
+    /// Instancie un obstacle dans la zone définie et lui applique la difficulté du niveau.
     private void SpawnSphere()
     {
+        // Création de l'obstacle comme enfant du Spawner
         Obstacle o = Instantiate(ObstaclePrefab, transform);
+
+        // Position locale aléatoire dans la zone
         o.transform.localPosition = new Vector3(
             Random.Range(-SpawnBounds.x, SpawnBounds.x),
             Random.Range(-SpawnBounds.y, SpawnBounds.y),
-            0);
+            0
+        );
+
+        // Applique la difficulté du niveau actuel à l'obstacle
+        o.SetDifficulty(
+            GameManager.Instance.ObstacleSpeedMultiplier,
+            GameManager.Instance.ObstacleDamage
+        );
     }
 
+    /// Affiche la zone de spawn dans la scène (éditeur uniquement).
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-
         Gizmos.DrawCube(transform.position, (Vector3)SpawnBounds);
     }
 }
