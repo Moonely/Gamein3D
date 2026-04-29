@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -27,6 +29,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject ExplosionPrefab;
 
+    [SerializeField]
+    private TextMeshProUGUI CountScore;
+
     void OnMove(InputValue value)
     {
         _movement = value.Get<Vector2>();
@@ -49,6 +54,8 @@ public class Player : MonoBehaviour
         Obstacle o = other.GetComponent<Obstacle>();
         if (o != null)
         {
+            CountScore cs = FindAnyObjectByType<CountScore>();
+            cs.score -= 75;
             int damages = o.Explode();
             HP -= damages;
 
