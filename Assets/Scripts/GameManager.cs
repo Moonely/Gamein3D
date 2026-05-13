@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 // ==========================================================
 // GAME MANAGER (mode Mission)
@@ -39,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Panneau qui s'affiche quand le jeu est terminé (niveau 3 réussi)")]
     public GameObject victoryPanel;
+
+    [SerializeField]
+    private TextMeshProUGUI CountScore;
 
     // Multiplicateurs lus par les autres scripts
     public float SpawnRateMultiplier { get; private set; } = 1f;
@@ -226,5 +230,16 @@ public class GameManager : MonoBehaviour
         reset.a = 1f;
         levelChangePopup.color = reset;
         levelChangePopup.transform.localScale = Vector3.one;
+    }
+
+    internal void AddHealth(int healthBonus)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void AddScore(int scoreBonus)
+    {
+        CountScore cs = FindAnyObjectByType<CountScore>();
+        cs.score += scoreBonus ;
     }
 }

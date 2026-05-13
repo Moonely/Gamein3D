@@ -7,7 +7,7 @@ public class CountScore : MonoBehaviour
     private TextMeshProUGUI scoreText;
 
     [SerializeField]
-    public int score = 0;
+    public float score = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +20,7 @@ public class CountScore : MonoBehaviour
     {
         if (score <= 0)
             score = 0;
-        score += (int)(15 * Time.deltaTime);
-        scoreText.text = "Score : " + score; 
+        score += 15 * Time.deltaTime;
+        scoreText.text = "Score : " + score.ToString("0"); 
     }
 }

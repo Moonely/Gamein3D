@@ -2351,6 +2351,7 @@ MonoBehaviour:
   levelCompletePanel: {fileID: 1688582314}
   levelCompleteText: {fileID: 1971330736}
   victoryPanel: {fileID: 2021986468}
+  CountScore: {fileID: 1523997414}
 --- !u!4 &1119780641
 Transform:
   m_ObjectHideFlags: 0
@@ -3120,8 +3121,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   ObstaclePrefab: {fileID: 3954130545569895389, guid: 045725f9f2d8b6a43addd26477891438, type: 3}
-  SpawnBounds: {x: 1, y: 6.2}
+  SpawnBounds: {x: 6.2, y: 6.2}
   SpawnDelay: {x: 0.2, y: 1}
+  BonusPrefab: {fileID: 3240050390716378167, guid: 7b4fa3386f609534dbfbd95b4c75ec2a, type: 3}
+  BonusSpawnChance: 0.2
 --- !u!1 &1423482173
 GameObject:
   m_ObjectHideFlags: 0

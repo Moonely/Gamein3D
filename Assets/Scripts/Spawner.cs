@@ -17,6 +17,9 @@ public class Spawner : MonoBehaviour
 
     private float _nextSpawn; // Temps auquel le prochain obstacle doit apparaître
 
+    [SerializeField] private BonusObstacle BonusPrefab;
+    [SerializeField] private float BonusSpawnChance = 0.2f;
+
     private void Update()
     {
         // Si on a dépassé le temps prévu pour le prochain spawn
@@ -37,21 +40,39 @@ public class Spawner : MonoBehaviour
     /// Instancie un obstacle dans la zone définie et lui applique la difficulté du niveau.
     private void SpawnSphere()
     {
-        // Création de l'obstacle comme enfant du Spawner
-        Obstacle o = Instantiate(ObstaclePrefab, transform);
+        if (Random.value < BonusSpawnChance)
+        {
+            SpawnBonus();
+        } else
+        {
+            // Création de l'obstacle comme enfant du Spawner
+            Obstacle o = Instantiate(ObstaclePrefab, transform);
 
-        // Position locale aléatoire dans la zone
-        o.transform.localPosition = new Vector3(
+            // Position locale aléatoire dans la zone
+            o.transform.localPosition = new Vector3(
+                Random.Range(-SpawnBounds.x, SpawnBounds.x),
+                Random.Range(-SpawnBounds.y, SpawnBounds.y),
+                0
+            );
+
+            // Applique la difficulté du niveau actuel à l'obstacle
+            o.SetDifficulty(
+                GameManager.Instance.ObstacleSpeedMultiplier,
+                GameManager.Instance.ObstacleDamage
+            );
+        }
+    }
+
+    private void SpawnBonus()
+    {
+        BonusObstacle b = Instantiate(BonusPrefab, transform);
+        b.transform.localPosition = new Vector3(
             Random.Range(-SpawnBounds.x, SpawnBounds.x),
             Random.Range(-SpawnBounds.y, SpawnBounds.y),
             0
         );
+        b.GetComponent<Obstacle>().SetDifficulty(GameManager.Instance.ObstacleSpeedMultiplier,0);
 
-        // Applique la difficulté du niveau actuel à l'obstacle
-        o.SetDifficulty(
-            GameManager.Instance.ObstacleSpeedMultiplier,
-            GameManager.Instance.ObstacleDamage
-        );
     }
 
     /// Affiche la zone de spawn dans la scène (éditeur uniquement).
