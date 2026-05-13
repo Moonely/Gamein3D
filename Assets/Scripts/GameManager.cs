@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
         {
             // Dernier niveau réussi → Victoire totale
             if (victoryPanel != null) victoryPanel.SetActive(true);
+            
             Debug.Log("[GameManager] VICTOIRE TOTALE !");
         }
         else
